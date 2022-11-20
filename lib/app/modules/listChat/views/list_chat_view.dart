@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/home_controller.dart';
+import '../controllers/list_chat_controller.dart';
 
-class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+class ListChatView extends GetView<ListChatController> {
+  const ListChatView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeView'),
+        title: const Text('ListChatView'),
         centerTitle: true,
       ),
       body: Center(
         child: Text(
-          'HomeView is working',
+          'ListChatView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),
