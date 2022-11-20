@@ -7,6 +7,8 @@ abstract class Routes {
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
   static const GANTI_PASSWORD = _Paths.GANTI_PASSWORD;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const CHAT = _Paths.CHAT;
+  static const LUPA_PASS = _Paths.LUPA_PASS;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const LOGIN_PAGE = '/login-page';
   static const GANTI_PASSWORD = '/ganti-password';
   static const DASHBOARD = '/dashboard';
+  static const CHAT = '/chat';
+  static const LUPA_PASS = '/lupa-pass';
 }
