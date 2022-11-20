@@ -52,7 +52,7 @@ class ItemChat extends StatelessWidget {
             height: 5,
           ),
           // Text(DateFormat.jm().format(DateTime.parse(time))),
-          Text("$time")
+          Text(DateFormat.jm().format(DateTime.parse(time))),
         ],
       ),
     );

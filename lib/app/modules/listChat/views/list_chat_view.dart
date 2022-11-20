@@ -10,7 +10,7 @@ class ListChatView extends GetView<ListChatController> {
   const ListChatView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       body: Column(
         children: [
           Material(
@@ -99,18 +99,16 @@ class ListChatView extends GetView<ListChatController> {
                                     ),
                                     leading: CircleAvatar(
                                       radius: 30,
-
-                                      // backgroundColor: Colors.white,
+                                      backgroundColor: Colors.transparent,
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(100),
-                                        child: data?["photoUrl"] == "noimage"
-                                            ? Image.network(
-                                                "https://ui-avatars.com/api/?name=${data?['nama']}",
-                                                fit: BoxFit.cover,
+                                        child: data?["foto"] == "foto kosong"
+                                            ? Lottie.asset(
+                                                "assets/lottie/avatar.json",
                                               )
                                             : Image.network(
-                                                "${data?["photoUrl"]}",
+                                                "${data?["foto"]}",
                                                 fit: BoxFit.cover,
                                               ),
                                       ),

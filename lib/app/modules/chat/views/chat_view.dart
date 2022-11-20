@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../widget/ChatW.dart';
 import '../controllers/chat_controller.dart';
@@ -34,7 +35,7 @@ class ChatView extends GetView<ChatController> {
               ),
               CircleAvatar(
                 radius: 20,
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.transparent,
                 child: StreamBuilder<DocumentSnapshot<Object?>>(
                   stream: controller.streamFriendData(
                       (Get.arguments as Map<String, dynamic>)["friendEmail"]),
@@ -44,19 +45,18 @@ class ChatView extends GetView<ChatController> {
                       var dataFriend =
                           snapFriendUser.data!.data() as Map<String, dynamic>;
 
-                      if (dataFriend["photoUrl"] == "noimage") {
+                      if (dataFriend["foto"] == "foto kosong") {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            "https://ui-avatars.com/api/?name=${dataFriend['nama']}",
-                            fit: BoxFit.cover,
+                          child: Lottie.asset(
+                            "assets/lottie/avatar.json",
                           ),
                         );
                       } else {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.network(
-                            dataFriend["photoUrl"],
+                            dataFriend["foto"],
                             fit: BoxFit.cover,
                           ),
                         );
@@ -64,9 +64,8 @@ class ChatView extends GetView<ChatController> {
                     }
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        "assets/logo/noimage.png",
-                        fit: BoxFit.cover,
+                      child: Lottie.asset(
+                        "assets/lottie/avatar.json",
                       ),
                     );
                   },
@@ -225,7 +224,7 @@ class ChatView extends GetView<ChatController> {
                 ),
                 Material(
                   borderRadius: BorderRadius.circular(100),
-                  color: Colors.lightGreen,
+                  color: Colors.blue.shade500,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(100),
                     onTap: () {
