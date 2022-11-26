@@ -1,15 +1,25 @@
 import 'package:get/get.dart';
 
+import '../modules/absensi_siswa/bindings/absensi_siswa_binding.dart';
+import '../modules/absensi_siswa/views/absensi_siswa_view.dart';
+import '../modules/buat_pengumuman/bindings/buat_pengumuman_binding.dart';
+import '../modules/buat_pengumuman/views/buat_pengumuman_view.dart';
 import '../modules/chat/bindings/chat_binding.dart';
 import '../modules/chat/views/chat_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/detail_siswa/bindings/detail_siswa_binding.dart';
+import '../modules/detail_siswa/views/detail_siswa_view.dart';
 import '../modules/gantiPassword/bindings/ganti_password_binding.dart';
 import '../modules/gantiPassword/views/ganti_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/lihat_suswa/bindings/lihat_suswa_binding.dart';
+import '../modules/lihat_suswa/views/lihat_suswa_view.dart';
 import '../modules/listChat/bindings/list_chat_binding.dart';
 import '../modules/listChat/views/list_chat_view.dart';
+import '../modules/list_pegumuman/bindings/list_pegumuman_binding.dart';
+import '../modules/list_pegumuman/views/list_pegumuman_view.dart';
 import '../modules/loginPage/bindings/login_page_binding.dart';
 import '../modules/loginPage/views/login_page_view.dart';
 import '../modules/lupaPass/bindings/lupa_pass_binding.dart';
@@ -71,6 +81,31 @@ class AppPages {
       name: _Paths.UPDATE_PROFIL,
       page: () => const UpdateProfilView(),
       binding: UpdateProfilBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUAT_PENGUMUMAN,
+      page: () => const BuatPengumumanView(),
+      binding: BuatPengumumanBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIHAT_SUSWA,
+      page: () => const LihatSuswaView(),
+      binding: LihatSuswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABSENSI_SISWA,
+      page: () => const AbsensiSiswaView(),
+      binding: AbsensiSiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_PEGUMUMAN,
+      page: () => const ListPegumumanView(),
+      binding: ListPegumumanBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_SISWA,
+      page: () => const DetailSiswaView(),
+      binding: DetailSiswaBinding(),
     ),
   ];
 }

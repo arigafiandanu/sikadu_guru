@@ -12,6 +12,11 @@ abstract class Routes {
   static const LIST_CHAT = _Paths.LIST_CHAT;
   static const PROFIL = _Paths.PROFIL;
   static const UPDATE_PROFIL = _Paths.UPDATE_PROFIL;
+  static const BUAT_PENGUMUMAN = _Paths.BUAT_PENGUMUMAN;
+  static const LIHAT_SUSWA = _Paths.LIHAT_SUSWA;
+  static const ABSENSI_SISWA = _Paths.ABSENSI_SISWA;
+  static const LIST_PEGUMUMAN = _Paths.LIST_PEGUMUMAN;
+  static const DETAIL_SISWA = _Paths.DETAIL_SISWA;
 }
 
 abstract class _Paths {
@@ -25,4 +30,9 @@ abstract class _Paths {
   static const LIST_CHAT = '/list-chat';
   static const PROFIL = '/profil';
   static const UPDATE_PROFIL = '/update-profil';
+  static const BUAT_PENGUMUMAN = '/buat-pengumuman';
+  static const LIHAT_SUSWA = '/lihat-suswa';
+  static const ABSENSI_SISWA = '/absensi-siswa';
+  static const LIST_PEGUMUMAN = '/list-pegumuman';
+  static const DETAIL_SISWA = '/detail-siswa';
 }

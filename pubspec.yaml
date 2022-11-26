@@ -32,5 +32,6 @@ flutter:
     - assets/lottie/empty.json
     - assets/lottie/login_admin.json
     - assets/lottie/lupa_password.json
+    - assets/fotoimg2.png
     
   uses-material-design: true

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sikadu_guru/app/routes/app_pages.dart';
 
 import '../../../widget/ChatW.dart';
 import '../controllers/chat_controller.dart';
@@ -20,7 +21,7 @@ class ChatView extends GetView<ChatController> {
         leadingWidth: 80,
         leading: InkWell(
           onTap: () {
-            Get.back();
+            Get.toNamed(Routes.DASHBOARD);
           },
           borderRadius: BorderRadius.circular(100),
           child: Row(

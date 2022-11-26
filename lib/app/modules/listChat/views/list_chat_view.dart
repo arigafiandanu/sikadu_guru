@@ -27,28 +27,28 @@ class ListChatView extends GetView<ListChatController> {
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
+                children: const [
+                  Text(
                     "Pesan Masuk",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Material(
-                    borderRadius: BorderRadius.circular(30),
-                    child: InkWell(
-                      onTap: () {},
-                      borderRadius: BorderRadius.circular(30),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Icon(
-                          Icons.delete_sweep_rounded,
-                          size: 25,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Material(
+                  //   borderRadius: BorderRadius.circular(30),
+                  //   child: InkWell(
+                  //     onTap: () {},
+                  //     borderRadius: BorderRadius.circular(30),
+                  //     child: const Padding(
+                  //       padding: EdgeInsets.all(10.0),
+                  //       child: Icon(
+                  //         Icons.delete_sweep_rounded,
+                  //         size: 25,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -57,7 +57,6 @@ class ListChatView extends GetView<ListChatController> {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: controller.chatdata(),
               builder: (context, snapshot) {
-                print(snapshot);
                 if (snapshot.connectionState == ConnectionState.active) {
                   var listChat = snapshot.data!.docs;
 
