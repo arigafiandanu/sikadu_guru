@@ -35,8 +35,8 @@ class DetailSiswaView extends GetView<DetailSiswaController> {
         ),
         centerTitle: true,
       ),
-      body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        stream: controller.streamSiswa(dataSiswaEmail),
+      body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        future: controller.streamSiswa(dataSiswaEmail),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

@@ -6,22 +6,20 @@ class LihatSuswaController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Stream<QuerySnapshot<Object?>> streamSiswa() {
-    // final String? kelas = firestore
-    //     .collection("users")
-    //     .doc(auth.currentUser?.email)
-    //     .collection('Data Guru')
-    //     .doc(auth.currentUser?.email)
-    //     .get()
-    //     .then((value) => value.data()?['MengajarKelas']) as String?;
-    // print("kelass");
-    // print(kelas);
+  Future<QuerySnapshot<Object?>> streamSiswa() async {
+    var waliKelas = await firestore
+        .collection("Guru")
+        .doc(auth.currentUser!.email)
+        .get()
+        .then((value) => value.data()?['mengajarKelas']);
 
-    Query<Map<String, dynamic>> siswa =
-        firestore.collection("users").where('role', isEqualTo: 'orangTua');
-    
-    // siswa.snapshots().map((data) => firestore.collection("Data Guru").where('kelas', isEqualTo: kelas));
+    print(waliKelas);
 
-    return siswa.snapshots();
+    Query<Map<String, dynamic>> siswa = firestore
+        .collection("Siswa")
+        .where("role", isEqualTo: "orangTua")
+        .where("kelas", isEqualTo: waliKelas);
+
+    return siswa.get();
   }
 }

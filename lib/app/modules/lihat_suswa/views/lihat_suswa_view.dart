@@ -32,8 +32,8 @@ class LihatSuswaView extends GetView<LihatSuswaController> {
         ),
         centerTitle: true,
       ),
-      body: StreamBuilder<QuerySnapshot<Object?>>(
-        stream: controller.streamSiswa(),
+      body: FutureBuilder<QuerySnapshot<Object?>>(
+        future: controller.streamSiswa(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
