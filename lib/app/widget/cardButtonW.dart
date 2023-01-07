@@ -44,7 +44,7 @@ class cardhomepage extends StatelessWidget {
               Text(
                 kategori,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: warna,
                 ),

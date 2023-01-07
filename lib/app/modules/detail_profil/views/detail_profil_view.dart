@@ -53,7 +53,16 @@ class DetailProfilView extends GetView<DetailProfilController> {
               ),
             ],
           ),
-          
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              infoProfil?['nama'],
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
         ],
       ),
     );

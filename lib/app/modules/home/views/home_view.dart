@@ -111,7 +111,7 @@ class HomeView extends GetView<HomeController> {
                 width: Get.width,
                 height: Get.height * 0.02,
                 child: const Text(
-                  "Dashboard Admin",
+                  "Dashboard Guru",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),
@@ -163,6 +163,18 @@ class HomeView extends GetView<HomeController> {
                     ),
                     kategori: "Absensi Siswa",
                   ),
+                  cardhomepage(
+                    ontap: () {
+                      Get.toNamed(Routes.NILAI_SISWA);
+                    },
+                    warnaTerang: AppColors.grayshade,
+                    warna: AppColors.blue,
+                    icon: const Icon(
+                      Icons.poll_outlined,
+                      size: 35,
+                    ),
+                    kategori: "Nilai Siswa",
+                  )
                 ],
               ),
             ),

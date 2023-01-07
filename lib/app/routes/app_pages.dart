@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/MasukkanNilai/bindings/masukkan_nilai_binding.dart';
+import '../modules/MasukkanNilai/views/masukkan_nilai_view.dart';
+import '../modules/NilaiSiswa/bindings/nilai_siswa_binding.dart';
+import '../modules/NilaiSiswa/views/nilai_siswa_view.dart';
 import '../modules/absensi_siswa/bindings/absensi_siswa_binding.dart';
 import '../modules/absensi_siswa/views/absensi_siswa_view.dart';
 import '../modules/buat_pengumuman/bindings/buat_pengumuman_binding.dart';
@@ -106,6 +110,16 @@ class AppPages {
       name: _Paths.DETAIL_PROFIL,
       page: () => DetailProfilView(),
       binding: DetailProfilBinding(),
+    ),
+    GetPage(
+      name: _Paths.NILAI_SISWA,
+      page: () => const NilaiSiswaView(),
+      binding: NilaiSiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.MASUKKAN_NILAI,
+      page: () => MasukkanNilaiView(),
+      binding: MasukkanNilaiBinding(),
     ),
   ];
 }
