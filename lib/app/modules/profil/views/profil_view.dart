@@ -78,10 +78,10 @@ class ProfilView extends GetView<ProfilController> {
                   child: ListTile(
                     style: ListTileStyle.list,
                     onTap: () {
-                      Get.toNamed(Routes.UPDATE_PROFIL);
+                      Get.toNamed(Routes.DETAIL_PROFIL, arguments: user);
                     },
                     leading: const Icon(Icons.person),
-                    title: const Text("Update profil"),
+                    title: const Text("profil"),
                     trailing: const Icon(Icons.arrow_right),
                   ),
                 ),
@@ -121,7 +121,7 @@ class ProfilView extends GetView<ProfilController> {
                     );
                   },
                   text: "Logout",
-                )
+                ),
               ],
             );
           } else {

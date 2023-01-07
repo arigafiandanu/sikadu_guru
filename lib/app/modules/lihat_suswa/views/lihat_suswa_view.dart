@@ -24,9 +24,9 @@ class LihatSuswaView extends GetView<LihatSuswaController> {
             color: Colors.black,
           ),
         ),
-        title: Text(
+        title: const Text(
           'Siswa DiKelas',
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
           ),
         ),

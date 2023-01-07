@@ -8,6 +8,8 @@ import '../modules/chat/bindings/chat_binding.dart';
 import '../modules/chat/views/chat_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/detail_profil/bindings/detail_profil_binding.dart';
+import '../modules/detail_profil/views/detail_profil_view.dart';
 import '../modules/detail_siswa/bindings/detail_siswa_binding.dart';
 import '../modules/detail_siswa/views/detail_siswa_view.dart';
 import '../modules/gantiPassword/bindings/ganti_password_binding.dart';
@@ -26,8 +28,6 @@ import '../modules/lupaPass/bindings/lupa_pass_binding.dart';
 import '../modules/lupaPass/views/lupa_pass_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
-import '../modules/updateProfil/bindings/update_profil_binding.dart';
-import '../modules/updateProfil/views/update_profil_view.dart';
 
 part 'app_routes.dart';
 
@@ -78,11 +78,6 @@ class AppPages {
       binding: ProfilBinding(),
     ),
     GetPage(
-      name: _Paths.UPDATE_PROFIL,
-      page: () => const UpdateProfilView(),
-      binding: UpdateProfilBinding(),
-    ),
-    GetPage(
       name: _Paths.BUAT_PENGUMUMAN,
       page: () => const BuatPengumumanView(),
       binding: BuatPengumumanBinding(),
@@ -106,6 +101,11 @@ class AppPages {
       name: _Paths.DETAIL_SISWA,
       page: () => const DetailSiswaView(),
       binding: DetailSiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_PROFIL,
+      page: () => DetailProfilView(),
+      binding: DetailProfilBinding(),
     ),
   ];
 }

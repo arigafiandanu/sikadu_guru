@@ -45,6 +45,9 @@ class ChatView extends GetView<ChatController> {
                         ConnectionState.active) {
                       var dataFriend =
                           snapFriendUser.data!.data() as Map<String, dynamic>;
+                      var dataEmail = (Get.arguments
+                          as Map<String, dynamic>)["friendEmail"];
+                      print(dataEmail);
 
                       if (dataFriend["foto"] == "foto kosong") {
                         return ClipRRect(
@@ -77,7 +80,7 @@ class ChatView extends GetView<ChatController> {
         ),
         title: StreamBuilder<DocumentSnapshot<Object?>>(
           stream: controller.streamFriendData(
-              (Get.arguments as Map<String, dynamic>)["friendEmail"]),
+              (Get.arguments as Map<String, dynamic>)["friendEmail"] ?? ""),
           builder: (context, snapFriendUser) {
             if (snapFriendUser.connectionState == ConnectionState.active) {
               var dataFriend =

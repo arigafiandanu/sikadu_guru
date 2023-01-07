@@ -17,6 +17,7 @@ abstract class Routes {
   static const ABSENSI_SISWA = _Paths.ABSENSI_SISWA;
   static const LIST_PEGUMUMAN = _Paths.LIST_PEGUMUMAN;
   static const DETAIL_SISWA = _Paths.DETAIL_SISWA;
+  static const DETAIL_PROFIL = _Paths.DETAIL_PROFIL;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const ABSENSI_SISWA = '/absensi-siswa';
   static const LIST_PEGUMUMAN = '/list-pegumuman';
   static const DETAIL_SISWA = '/detail-siswa';
+  static const DETAIL_PROFIL = '/detail-profil';
 }
