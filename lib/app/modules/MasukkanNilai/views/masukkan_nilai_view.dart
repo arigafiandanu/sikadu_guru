@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sikadu_guru/app/style/textStyle.dart';
 import 'package:sikadu_guru/app/widget/buttonW.dart';
+import 'package:sikadu_guru/app/widget/textFieldCatatan.dart';
 import 'package:sikadu_guru/app/widget/textFieldNilai.dart';
 
 import '../controllers/masukkan_nilai_controller.dart';
@@ -101,79 +102,134 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                             ),
                           ),
                           Expanded(
-                            child: ListView.builder(
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                TextEditingController nilaiUts =
-                                    TextEditingController();
-                                TextEditingController nilaiSemester =
-                                    TextEditingController();
+                            child: FutureBuilder<
+                                    QuerySnapshot<Map<String, dynamic>>>(
+                                future: controller.streamPelajaran(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                      child: Text("Waiting Data"),
+                                    );
+                                  }
+                                  if (snapshot.hasData) {
+                                    var data = snapshot.data!.docs;
 
-                                controller.niliUtsC.add(nilaiUts);
-                                controller.nilaiSemesterC.add(nilaiSemester);
+                                    return ListView.builder(
+                                      itemCount: data.length,
+                                      itemBuilder: (context, index) {
+                                        TextEditingController nilaiUts =
+                                            TextEditingController();
+                                        // TextEditingController nilaiSemester =
+                                        //     TextEditingController();
+                                        // TextEditingController catatanGuru =
+                                        //     TextEditingController();
 
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  height: 200,
-                                  color: Colors.green.shade50,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                              left: 20,
-                                              top: 20,
-                                            ),
-                                            width: Get.width / 2,
-                                            child: Text(
-                                              "Mata Pelajaran",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
+                                        controller.niliUtsC.add(nilaiUts);
+                                        // controller.nilaiSemesterC
+                                        //     .add(nilaiSemester);
+                                        // controller.catananGuruC
+                                        //     .add(catatanGuru);
+                                        controller.listNilaiUts.add(nilaiUts.text.toString());
+
+                                        var dataPelajaran = data[index].data();
+                                        return Container(
+                                          margin:
+                                              const EdgeInsets.only(bottom: 10),
+                                          height: 250,
+                                          color: Colors.blue.shade50,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 20,
+                                                      top: 20,
+                                                    ),
+                                                    width: Get.width / 2,
+                                                    child: Text(
+                                                      "${dataPelajaran['pelajaran']}",
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 20),
+                                                    width: Get.width / 4,
+                                                    child: TextFormNilai(
+                                                      hint: "70",
+                                                      controller: nilaiUts,
+                                                      readOnly: false,
+                                                    ),
+                                                  ),
+                                                  // Container(
+                                                  //   padding:
+                                                  //       const EdgeInsets.only(
+                                                  //           top: 20),
+                                                  //   width: Get.width / 4,
+                                                  //   child: TextFormNilai(
+                                                  //     hint: "89",
+                                                  //     controller: nilaiSemester,
+                                                  //     readOnly: false,
+                                                  //   ),
+                                                  // ),
+                                                ],
+                                              ),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                  left: 20,
+                                                  top: 20,
+                                                ),
+                                                width: Get.width,
+                                                child: const Text(
+                                                  "Catatan : ",
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                              // Container(
+                                              //   padding: const EdgeInsets.only(
+                                              //     left: 20,
+                                              //     right: 20,
+                                              //     top: 10,
+                                              //   ),
+                                              //   child: TextFieldCatatan(
+                                              //     hint:
+                                              //         "Catatan Mata Pelajaran ini",
+                                              //     controller: catatanGuru,
+                                              //     readOnly: false,
+                                              //   ),
+                                              // )
+                                            ],
                                           ),
-                                          Container(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
-                                            width: Get.width / 4,
-                                            child: TextFormNilai(
-                                              hint: "70",
-                                              controller: nilaiUts,
-                                              readOnly: false,
-                                            ),
-                                          ),
-                                          Container(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
-                                            width: Get.width / 4,
-                                            child: TextFormNilai(
-                                              hint: "89",
-                                              controller: nilaiSemester,
-                                              readOnly: false,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 20, top: 20),
-                                        width: Get.width,
-                                        child: const Text(
-                                          "Catatan : ",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: Text("Error"),
+                                    );
+                                  }
+                                }),
                           ),
-                          ButtonW(onTap: () {}, text: "Tambah")
+                          ButtonW(
+                            onTap: () {
+                              controller.tambahNilaiSiswa("semester 2", dataSiswa["email"]);
+                            },
+                            text: "Tambah",
+                          )
                         ],
                       ),
                       ListView(
