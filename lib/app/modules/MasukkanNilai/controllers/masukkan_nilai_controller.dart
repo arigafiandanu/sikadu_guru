@@ -3,7 +3,6 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class MasukkanNilaiController extends GetxController {
@@ -16,7 +15,7 @@ class MasukkanNilaiController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<QuerySnapshot<Map<String, dynamic>>> streamPelajaran() async {
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamPelajaran() async* {
     var waliKelas = await firestore
         .collection("Guru")
         .doc(auth.currentUser!.email)
@@ -26,9 +25,10 @@ class MasukkanNilaiController extends GetxController {
     var mataPelajaran =
         firestore.collection("pelajaran").where("kelas", isEqualTo: waliKelas);
 
-    return mataPelajaran.get();
+    yield* mataPelajaran.snapshots();
   }
 
+  // maybe used in future
   Future<void> tambahNilaiSiswa(String semester, String email) async {
     List<String> listPelajaran = [];
     List<String> listPelajaranData = [];
@@ -49,10 +49,6 @@ class MasukkanNilaiController extends GetxController {
       listPelajaran.add(isiData['pelajaran']);
     }
 
-    print(waliKelas);
-    print(mapDataPelajaran);
-    print("data diprintt");
-    print(listPelajaran);
     DocumentReference<Map<String, dynamic>> siswa =
         firestore.collection("Siswa").doc();
 
@@ -103,4 +99,20 @@ class MasukkanNilaiController extends GetxController {
       );
     }
   }
+
+  // function to get grade student
+  Stream<DocumentSnapshot<Map<String, dynamic>>> futureGrade (
+      String email) async* {
+    var waliKelas = await firestore
+        .collection("Guru")
+        .doc(auth.currentUser!.email)
+        .get()
+        .then((value) => value.data()?['mengajarKelas']);
+
+    var mataPelajaran = firestore.collection("Siswa").doc(email);
+
+    yield* mataPelajaran.snapshots();
+  }
+
+
 }

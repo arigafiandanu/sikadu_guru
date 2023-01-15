@@ -12,10 +12,14 @@ import '../modules/chat/bindings/chat_binding.dart';
 import '../modules/chat/views/chat_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/detailPengumuman/bindings/detail_pengumuman_binding.dart';
+import '../modules/detailPengumuman/views/detail_pengumuman_view.dart';
 import '../modules/detail_profil/bindings/detail_profil_binding.dart';
 import '../modules/detail_profil/views/detail_profil_view.dart';
 import '../modules/detail_siswa/bindings/detail_siswa_binding.dart';
 import '../modules/detail_siswa/views/detail_siswa_view.dart';
+import '../modules/editNilai/bindings/edit_nilai_binding.dart';
+import '../modules/editNilai/views/edit_nilai_view.dart';
 import '../modules/gantiPassword/bindings/ganti_password_binding.dart';
 import '../modules/gantiPassword/views/ganti_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -120,6 +124,16 @@ class AppPages {
       name: _Paths.MASUKKAN_NILAI,
       page: () => MasukkanNilaiView(),
       binding: MasukkanNilaiBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_NILAI,
+      page: () => EditNilaiView(),
+      binding: EditNilaiBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_PENGUMUMAN,
+      page: () => const DetailPengumumanView(),
+      binding: DetailPengumumanBinding(),
     ),
   ];
 }
