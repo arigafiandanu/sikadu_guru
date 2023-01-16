@@ -104,7 +104,9 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                           Expanded(
                             child: StreamBuilder<
                                     QuerySnapshot<Map<String, dynamic>>>(
-                                stream: controller.streamPelajaran().asBroadcastStream(),
+                                stream: controller
+                                    .streamPelajaran()
+                                    .asBroadcastStream(),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
@@ -115,7 +117,6 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                   if (snapshot.hasData) {
                                     var data = snapshot.data!.docs;
                                     var kelas = dataSiswa['kelas'];
-                                    var dataNilai = {};
                                     return ListView.builder(
                                       itemCount: data.length,
                                       itemBuilder: (context, index) {
@@ -123,16 +124,24 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                         return StreamBuilder<
                                                 DocumentSnapshot<
                                                     Map<String, dynamic>>>(
-                                            stream: controller.futureGrade(
-                                                dataSiswa['email']).asBroadcastStream(),
+                                            stream: controller
+                                                .futureGrade(dataSiswa['email'])
+                                                .asBroadcastStream(),
                                             builder: (context, snapshot2) {
                                               if (snapshot2.hasData) {
                                                 var gradeData = snapshot2.data;
                                                 var pelajaran =
                                                     dataPelajaran['pelajaran'];
+
                                                 var grade = gradeData?['nilai']
-                                                        [kelas]?['semester 1']?
-                                                    [pelajaran];
+                                                                [kelas]
+                                                            ?['semester 1']
+                                                        ?[pelajaran];
+
+                                                var gradeUts =
+                                                    grade?['nilaiUts'] ?? "0";
+                                                var gradeSemester =
+                                                    grade?['nilaiSemester'] ?? "0";
 
                                                 return Container(
                                                   margin: const EdgeInsets.only(
@@ -176,7 +185,7 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                             width:
                                                                 Get.width / 5,
                                                             child: Text(
-                                                              grade['nilaiUts']
+                                                              gradeUts
                                                                   .toString(),
                                                             ),
                                                           ),
@@ -189,7 +198,7 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                             width:
                                                                 Get.width / 5,
                                                             child: Text(
-                                                              grade['nilaiSemester']
+                                                              gradeSemester
                                                                   .toString(),
                                                             ),
                                                           ),
@@ -268,7 +277,7 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                         alignment:
                                                             Alignment.topLeft,
                                                         child: Text(
-                                                          grade['catatanGuru'],
+                                                          grade?['catatanGuru'] ?? "Belum ada catatan",
                                                         ),
                                                       )
                                                     ],
@@ -342,7 +351,9 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                           Expanded(
                             child: StreamBuilder<
                                     QuerySnapshot<Map<String, dynamic>>>(
-                                stream: controller.streamPelajaran().asBroadcastStream(),
+                                stream: controller
+                                    .streamPelajaran()
+                                    .asBroadcastStream(),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
@@ -361,18 +372,23 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                         return StreamBuilder<
                                                 DocumentSnapshot<
                                                     Map<String, dynamic>>>(
-                                            stream: controller.futureGrade(
-                                                dataSiswa['email']).asBroadcastStream(),
+                                            stream: controller
+                                                .futureGrade(dataSiswa['email'])
+                                                .asBroadcastStream(),
                                             builder: (context, snapshot2) {
                                               if (snapshot2.hasData) {
                                                 var gradeData = snapshot2.data;
                                                 var pelajaran =
                                                     dataPelajaran['pelajaran'];
-                                                var grade = gradeData?['nilai']?
-                                                        [kelas]?['semester 2']?[pelajaran];
-                                                var gradeUts = grade?['nilaiUts'] ?? 0;
-                                                var gradeSemester = grade?['nilaiSemester'] ?? 0;
-                                                
+                                                var grade = gradeData?['nilai']
+                                                        ?[kelas]?['semester 2']
+                                                    ?[pelajaran];
+                                                var gradeUts =
+                                                    grade?['nilaiUts'] ?? 0;
+                                                var gradeSemester =
+                                                    grade?['nilaiSemester'] ??
+                                                        0;
+
                                                 print(pelajaran);
                                                 print(grade);
 
@@ -417,9 +433,8 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                             ),
                                                             width:
                                                                 Get.width / 5,
-                                                            child: Text(
-                                                              gradeUts.toString()
-                                                            ),
+                                                            child: Text(gradeUts
+                                                                .toString()),
                                                           ),
                                                           Container(
                                                             padding:
@@ -430,8 +445,8 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                             width:
                                                                 Get.width / 5,
                                                             child: Text(
-                                                             gradeSemester.toString()
-                                                            ),
+                                                                gradeSemester
+                                                                    .toString()),
                                                           ),
                                                           Container(
                                                             padding:
@@ -508,7 +523,8 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                         alignment:
                                                             Alignment.topLeft,
                                                         child: Text(
-                                                          grade?['catatanGuru'] ?? "Catatan untuk siswa",
+                                                          grade?['catatanGuru'] ??
+                                                              "Catatan untuk siswa",
                                                         ),
                                                       )
                                                     ],

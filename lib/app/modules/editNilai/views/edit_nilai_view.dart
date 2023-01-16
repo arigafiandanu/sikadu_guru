@@ -15,8 +15,6 @@ class EditNilaiView extends GetView<EditNilaiController> {
   var catatanGuru = Get.arguments['catatanGuru'];
   var semester = Get.arguments['semester'];
 
-  
-
   EditNilaiView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
