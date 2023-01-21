@@ -65,7 +65,7 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
               hint: controller.kategoriP.value,
               controller: null,
               widget: DropdownButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.keyboard_arrow_down_rounded,
                 ),
                 iconSize: 35,
@@ -81,6 +81,32 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
                 }).toList(),
                 onChanged: (String? kategori) {
                   controller.kategoriP.value = kategori!;
+                },
+              ),
+            ),
+          ),
+           Obx(
+            () => TextFormButtonW(
+              title: "Penerima Pengumuman",
+              hint: controller.KategoriPenerima.value,
+              controller: null,
+              widget: DropdownButton(
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                ),
+                iconSize: 35,
+                elevation: 4,
+                underline: Container(
+                  height: 0,
+                ),
+                items: controller.dataPenerimaPengumuman.map((e) {
+                  return DropdownMenuItem(
+                    value: e.toString(),
+                    child: Text(e.toString()),
+                  );
+                }).toList(),
+                onChanged: (String? kategori) {
+                  controller.KategoriPenerima.value = kategori!;
                 },
               ),
             ),
@@ -145,7 +171,7 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
             onTap: () {
               controller.tambahPengumuman();
             },
-            text: "Tambah Pengumuman",
+            text: "Buat Pengumuman",
           ),
           const SizedBox(
             height: 100,

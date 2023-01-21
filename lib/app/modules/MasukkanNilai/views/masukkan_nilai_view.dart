@@ -134,14 +134,14 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                     dataPelajaran['pelajaran'];
 
                                                 var grade = gradeData?['nilai']
-                                                                [kelas]
-                                                            ?['semester 1']
-                                                        ?[pelajaran];
+                                                        [kelas]?['semester 1']
+                                                    ?[pelajaran];
 
                                                 var gradeUts =
                                                     grade?['nilaiUts'] ?? "0";
                                                 var gradeSemester =
-                                                    grade?['nilaiSemester'] ?? "0";
+                                                    grade?['nilaiSemester'] ??
+                                                        "0";
 
                                                 return Container(
                                                   margin: const EdgeInsets.only(
@@ -223,19 +223,19 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                                       "dataSiswa":
                                                                           dataSiswa,
                                                                       "nilaiUts":
-                                                                          grade['nilaiUts']
-                                                                              .toString(),
+                                                                          grade?[
+                                                                              'nilaiUts'],
                                                                       "nilaiSemester":
-                                                                          grade['nilaiSemester']
-                                                                              .toString(),
+                                                                          grade?[
+                                                                              'nilaiSemester'],
                                                                       "catatanGuru":
-                                                                          grade[
+                                                                          grade?[
                                                                               'catatanGuru'],
                                                                       "semester":
                                                                           "semester 1"
                                                                     });
                                                               },
-                                                              icon: Icon(
+                                                              icon: const Icon(
                                                                 Icons.edit,
                                                               ),
                                                             ),
@@ -277,7 +277,8 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                                                         alignment:
                                                             Alignment.topLeft,
                                                         child: Text(
-                                                          grade?['catatanGuru'] ?? "Belum ada catatan",
+                                                          grade?['catatanGuru'] ??
+                                                              "Belum ada catatan",
                                                         ),
                                                       )
                                                     ],

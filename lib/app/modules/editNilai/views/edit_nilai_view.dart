@@ -8,12 +8,12 @@ import '../../../widget/textFieldCatatan.dart';
 import '../controllers/edit_nilai_controller.dart';
 
 class EditNilaiView extends GetView<EditNilaiController> {
-  var mataPelajaran = Get.arguments['pelajaran'];
-  var dataSiswa = Get.arguments['dataSiswa'];
-  var nilaiUts = Get.arguments['nilaiUts'];
-  var nilaiSemester = Get.arguments['nilaiSemester'];
-  var catatanGuru = Get.arguments['catatanGuru'];
-  var semester = Get.arguments['semester'];
+  var mataPelajaran = Get.arguments['pelajaran'] ?? "";
+  var dataSiswa = Get.arguments['dataSiswa'] ?? "";
+  var nilaiUts = Get.arguments['nilaiUts'] ?? "";
+  var nilaiSemester = Get.arguments['nilaiSemester'] ?? "";
+  var catatanGuru = Get.arguments['catatanGuru'] ?? "";
+  var semester = Get.arguments['semester'] ?? "";
 
   EditNilaiView({Key? key}) : super(key: key);
   @override
