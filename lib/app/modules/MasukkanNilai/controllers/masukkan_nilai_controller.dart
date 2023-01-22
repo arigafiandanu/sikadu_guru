@@ -100,7 +100,7 @@ class MasukkanNilaiController extends GetxController {
       );
     }
   }
-
+  
   // function to get grade student
   Stream<DocumentSnapshot<Map<String, dynamic>>> streamGrade (
       ) async* {

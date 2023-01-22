@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../model/userModel.dart';
 
 class HomeController extends GetxController {
- FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   late DocumentReference<UserData> userinfo;
   late String currentUser;
