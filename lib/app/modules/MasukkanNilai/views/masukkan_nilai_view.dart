@@ -48,513 +48,412 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
             child: Column(
               children: [
                 TabBar(
-                  labelColor: Colors.black,
                   tabs: myTab,
+                  labelColor: Colors.black,
                 ),
                 SizedBox(
                   height: Get.height * 0.85,
-                  child: TabBarView(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  width: Get.width / 2,
-                                  child: const Text(
-                                    "Mata Pelajaran",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  width: Get.width / 5,
-                                  child: const Text(
-                                    "Nilai UTS",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  width: Get.width / 5,
-                                  child: const Text(
-                                    "Nilai Semester",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: Get.width / 10,
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: StreamBuilder<
-                                    QuerySnapshot<Map<String, dynamic>>>(
-                                stream: controller
-                                    .streamPelajaran()
-                                    .asBroadcastStream(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const Center(
-                                      child: Text("Waiting Data"),
-                                    );
-                                  }
-                                  if (snapshot.hasData) {
-                                    var data = snapshot.data!.docs;
-                                    var kelas = dataSiswa['kelas'];
-                                    return ListView.builder(
-                                      itemCount: data.length,
-                                      itemBuilder: (context, index) {
-                                        var dataPelajaran = data[index].data();
-                                        return StreamBuilder<
-                                                DocumentSnapshot<
-                                                    Map<String, dynamic>>>(
-                                            stream: controller
-                                                .futureGrade(dataSiswa['email'])
-                                                .asBroadcastStream(),
-                                            builder: (context, snapshot2) {
-                                              if (snapshot2.hasData) {
-                                                var gradeData = snapshot2.data;
-                                                var pelajaran =
-                                                    dataPelajaran['pelajaran'];
+                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: controller.streamPelajaran(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: Text("Waiting data lecture"),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        return StreamBuilder<
+                            DocumentSnapshot<Map<String, dynamic>>>(
+                          stream: controller.streamGrade(),
+                          builder: (context, snapshotGrade) {
+                            if (snapshotGrade.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: Text("Waiting data Grade"),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              var dataPelajaran = snapshot.data!.docs;
+                              var gradeData = snapshotGrade.data!;
+                              var kelas = dataSiswa['kelas'];
+                              var gradeMid =
+                                  gradeData?['nilai'][kelas]?['semester 1'];
 
-                                                var grade = gradeData?['nilai']
-                                                        [kelas]?['semester 1']
-                                                    ?[pelajaran];
+                              print(gradeMid);
+                              print("isi grade middddddd");
+                              var gradeFinal =
+                                  gradeData?['nilai'][kelas]?['semester 2'];
 
-                                                var gradeUts =
-                                                    grade?['nilaiUts'] ?? "0";
-                                                var gradeSemester =
-                                                    grade?['nilaiSemester'] ??
-                                                        "0";
-
-                                                return Container(
-                                                  margin: const EdgeInsets.only(
-                                                      bottom: 10),
-                                                  height: 250,
-                                                  color: Colors.blue
-                                                      .withOpacity(0.05),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              left: 20,
-                                                              top: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 2,
-                                                            child: Text(
-                                                              "${dataPelajaran['pelajaran']}",
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 5,
-                                                            child: Text(
-                                                              gradeUts
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 5,
-                                                            child: Text(
-                                                              gradeSemester
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 20,
-                                                              right: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 10,
-                                                            child: IconButton(
-                                                              onPressed: () {
-                                                                Get.toNamed(
-                                                                    Routes
-                                                                        .EDIT_NILAI,
-                                                                    arguments: {
-                                                                      "pelajaran":
-                                                                          dataPelajaran[
-                                                                              'pelajaran'],
-                                                                      "dataSiswa":
-                                                                          dataSiswa,
-                                                                      "nilaiUts":
-                                                                          grade?[
-                                                                              'nilaiUts'],
-                                                                      "nilaiSemester":
-                                                                          grade?[
-                                                                              'nilaiSemester'],
-                                                                      "catatanGuru":
-                                                                          grade?[
-                                                                              'catatanGuru'],
-                                                                      "semester":
-                                                                          "semester 1"
-                                                                    });
-                                                              },
-                                                              icon: const Icon(
-                                                                Icons.edit,
-                                                              ),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          left: 20,
-                                                          top: 20,
-                                                        ),
-                                                        width: Get.width,
-                                                        child: const Text(
-                                                          "Catatan : ",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          left: 20,
-                                                          right: 20,
-                                                          top: 10,
-                                                        ),
-                                                        height: Get.width / 5,
-                                                        margin: const EdgeInsets
-                                                                .only(
-                                                            left: 20,
-                                                            right: 20,
-                                                            top: 10),
-                                                        color: Colors.white,
-                                                        alignment:
-                                                            Alignment.topLeft,
-                                                        child: Text(
-                                                          grade?['catatanGuru'] ??
-                                                              "Belum ada catatan",
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              } else {
-                                                return const Center(
-                                                  child: Text("data Kosong"),
-                                                );
-                                              }
-                                            });
-                                      },
-                                    );
-                                  } else {
-                                    return const Center(
-                                      child: Text("Error"),
-                                    );
-                                  }
-                                }),
-                          ),
-                        ],
-                      ),
-                      //tab nilaisemester
-
-                      Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  width: Get.width / 2,
-                                  child: const Text(
-                                    "Mata Pelajaran",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                              return TabBarView(children: [
+                                // Tab semester 1
+                                Column(
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 20),
+                                            width: Get.width / 2,
+                                            child: const Text(
+                                              "Mata Pelajaran",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Nilai UTS",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Nilai Semester",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: Get.width / 10,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    _inputGradeMid(
+                                        dataPelajaran, gradeData, kelas)
+                                  ],
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  width: Get.width / 5,
-                                  child: const Text(
-                                    "Nilai UTS",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  width: Get.width / 5,
-                                  child: const Text(
-                                    "Nilai Semester",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: Get.width / 10,
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: StreamBuilder<
-                                    QuerySnapshot<Map<String, dynamic>>>(
-                                stream: controller
-                                    .streamPelajaran()
-                                    .asBroadcastStream(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const Center(
-                                      child: Text("Waiting Data"),
-                                    );
-                                  }
-                                  if (snapshot.hasData) {
-                                    var data = snapshot.data!.docs;
-                                    var kelas = dataSiswa['kelas'];
-                                    var dataNilai = {};
-                                    return ListView.builder(
-                                      itemCount: data.length,
-                                      itemBuilder: (context, index) {
-                                        var dataPelajaran = data[index].data();
-                                        return StreamBuilder<
-                                                DocumentSnapshot<
-                                                    Map<String, dynamic>>>(
-                                            stream: controller
-                                                .futureGrade(dataSiswa['email'])
-                                                .asBroadcastStream(),
-                                            builder: (context, snapshot2) {
-                                              if (snapshot2.hasData) {
-                                                var gradeData = snapshot2.data;
-                                                var pelajaran =
-                                                    dataPelajaran['pelajaran'];
-                                                var grade = gradeData?['nilai']
-                                                        ?[kelas]?['semester 2']
-                                                    ?[pelajaran];
-                                                var gradeUts =
-                                                    grade?['nilaiUts'] ?? 0;
-                                                var gradeSemester =
-                                                    grade?['nilaiSemester'] ??
-                                                        0;
 
-                                                print(pelajaran);
-                                                print(grade);
-
-                                                return Container(
-                                                  margin: const EdgeInsets.only(
-                                                      bottom: 10),
-                                                  height: 250,
-                                                  color: Colors.blue
-                                                      .withOpacity(0.05),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              left: 20,
-                                                              top: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 2,
-                                                            child: Text(
-                                                              "${dataPelajaran['pelajaran']}",
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 5,
-                                                            child: Text(gradeUts
-                                                                .toString()),
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 5,
-                                                            child: Text(
-                                                                gradeSemester
-                                                                    .toString()),
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 20,
-                                                              right: 20,
-                                                            ),
-                                                            width:
-                                                                Get.width / 10,
-                                                            child: IconButton(
-                                                              onPressed: () {
-                                                                Get.toNamed(
-                                                                    Routes
-                                                                        .EDIT_NILAI,
-                                                                    arguments: {
-                                                                      "pelajaran":
-                                                                          dataPelajaran[
-                                                                              'pelajaran'],
-                                                                      "dataSiswa":
-                                                                          dataSiswa,
-                                                                      "nilaiUts":
-                                                                          grade?['nilaiUts']
-                                                                              .toString(),
-                                                                      "nilaiSemester":
-                                                                          grade?['nilaiSemester']
-                                                                              .toString(),
-                                                                      "catatanGuru":
-                                                                          grade?[
-                                                                              'catatanGuru'],
-                                                                      "semester":
-                                                                          "semester 2"
-                                                                    });
-                                                              },
-                                                              icon: Icon(
-                                                                Icons.edit,
-                                                              ),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          left: 20,
-                                                          top: 20,
-                                                        ),
-                                                        width: Get.width,
-                                                        child: const Text(
-                                                          "Catatan : ",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          left: 20,
-                                                          right: 20,
-                                                          top: 10,
-                                                        ),
-                                                        height: Get.width / 5,
-                                                        margin: const EdgeInsets
-                                                                .only(
-                                                            left: 20,
-                                                            right: 20,
-                                                            top: 10),
-                                                        color: Colors.white,
-                                                        alignment:
-                                                            Alignment.topLeft,
-                                                        child: Text(
-                                                          grade?['catatanGuru'] ??
-                                                              "Catatan untuk siswa",
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              } else {
-                                                return const Center(
-                                                  child: Text("data Kosong"),
-                                                );
-                                              }
-                                            });
-                                      },
-                                    );
-                                  } else {
-                                    return const Center(
-                                      child: Text("Error"),
-                                    );
-                                  }
-                                }),
-                          ),
-                        ],
-                      ),
-                    ],
+                                // tabbar semester 2
+                                Column(
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 20),
+                                            width: Get.width / 2,
+                                            child: const Text(
+                                              "Mata Pelajaran",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Nilai UTS",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            width: Get.width / 5,
+                                            child: const Text(
+                                              "Nilai Semester",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: Get.width / 10,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    _inputGradeFinal(
+                                        dataPelajaran, gradeData, kelas)
+                                  ],
+                                ),
+                              ]);
+                            } else {
+                              return const Center(
+                                child: Text("Error data Grade"),
+                              );
+                            }
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("Error data lecture"),
+                        );
+                      }
+                    },
                   ),
                 )
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Expanded _inputGradeFinal(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> dataPelajaran,
+      DocumentSnapshot<Map<String, dynamic>> gradeData,
+      kelas) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: dataPelajaran.length,
+        itemBuilder: ((context, index) {
+          var dataPelajaranIndex = dataPelajaran[index].data();
+          var pelajaran = dataPelajaranIndex['pelajaran'];
+
+          var grade = gradeData?['nilai'][kelas]?['semester 2']?[pelajaran];
+          var gradeUts = grade?['nilaiUts'] ?? "0";
+          var gradeSemester = grade?['nilaiSemester'] ?? "0";
+
+          return Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            height: 250,
+            color: Colors.blue.withOpacity(0.05),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        top: 20,
+                      ),
+                      width: Get.width / 2,
+                      child: Text(
+                        "${dataPelajaranIndex['pelajaran']}",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                      ),
+                      width: Get.width / 5,
+                      child: Text(
+                        gradeUts.toString(),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                      ),
+                      width: Get.width / 5,
+                      child: Text(
+                        gradeSemester.toString(),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        right: 20,
+                      ),
+                      width: Get.width / 10,
+                      child: IconButton(
+                        onPressed: () {
+                          Get.toNamed(
+                            Routes.EDIT_NILAI,
+                            arguments: {
+                              "pelajaran": dataPelajaranIndex['pelajaran'],
+                              "dataSiswa": dataSiswa,
+                              "nilaiUts": grade?['nilaiUts'],
+                              "nilaiSemester": grade?['nilaiSemester'],
+                              "catatanGuru": grade?['catatanGuru'],
+                              "semester": "semester 2"
+                            },
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    top: 20,
+                  ),
+                  width: Get.width,
+                  child: const Text(
+                    "Catatan : ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 10,
+                  ),
+                  height: Get.width / 5,
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                  color: Colors.white,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    grade?['catatanGuru'] ?? "Belum ada catatan",
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  Expanded _inputGradeMid(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> dataPelajaran,
+      DocumentSnapshot<Map<String, dynamic>> gradeData,
+      kelas) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: dataPelajaran.length,
+        itemBuilder: ((context, index) {
+          var dataPelajaranIndex = dataPelajaran[index].data();
+          var pelajaran = dataPelajaranIndex['pelajaran'];
+
+          var grade = gradeData?['nilai'][kelas]?['semester 1']?[pelajaran];
+          var gradeUts = grade?['nilaiUts'] ?? "0";
+          var gradeSemester = grade?['nilaiSemester'] ?? "0";
+
+          return Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            height: 250,
+            color: Colors.blue.withOpacity(0.05),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        top: 20,
+                      ),
+                      width: Get.width / 2,
+                      child: Text(
+                        "${dataPelajaranIndex['pelajaran']}",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                      ),
+                      width: Get.width / 5,
+                      child: Text(
+                        gradeUts.toString(),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                      ),
+                      width: Get.width / 5,
+                      child: Text(
+                        gradeSemester.toString(),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        right: 20,
+                      ),
+                      width: Get.width / 10,
+                      child: IconButton(
+                        onPressed: () {
+                          Get.toNamed(
+                            Routes.EDIT_NILAI,
+                            arguments: {
+                              "pelajaran": dataPelajaranIndex['pelajaran'],
+                              "dataSiswa": dataSiswa,
+                              "nilaiUts": grade?['nilaiUts'],
+                              "nilaiSemester": grade?['nilaiSemester'],
+                              "catatanGuru": grade?['catatanGuru'],
+                              "semester": "semester 1"
+                            },
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    top: 20,
+                  ),
+                  width: Get.width,
+                  child: const Text(
+                    "Catatan : ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 10,
+                  ),
+                  height: Get.width / 5,
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                  color: Colors.white,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    grade?['catatanGuru'] ?? "Belum ada catatan",
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

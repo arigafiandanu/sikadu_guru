@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:sikadu_guru/app/widget/textFieldIsiPengumuman.dart';
 
 import '../../../widget/buttonW.dart';
 import '../../../widget/teksFieldButtonW.dart';
@@ -13,7 +14,7 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
   const BuatPengumumanView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -49,15 +50,17 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
             controller: controller.judulC,
             maxLines: 1,
           ),
-          CustomFormFieldTambahUser(
-            headingText: "Isi",
-            hintText: "Isi Pengumuman",
+          CustomFormFieldIsiPengumuman(
+            headingText: "Isi Pengumuman",
+            hintText: "Masukkan Pengumuman",
             obsecureText: false,
-            suffixIcon: const SizedBox(),
-            textInputType: TextInputType.emailAddress,
+            suffixIcon: SizedBox(),
+            textInputType: TextInputType.multiline,
             textInputAction: TextInputAction.next,
             controller: controller.isiC,
-            maxLines: 1,
+            maxLines: 30,
+            readOnly: false,
+            hint: "Masukan isi Pengumuman",
           ),
           Obx(
             () => TextFormButtonW(
@@ -85,13 +88,13 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
               ),
             ),
           ),
-           Obx(
+          Obx(
             () => TextFormButtonW(
               title: "Penerima Pengumuman",
-              hint: controller.KategoriPenerima.value,
+              hint: controller.kategoriPenerima.value,
               controller: null,
               widget: DropdownButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.keyboard_arrow_down_rounded,
                 ),
                 iconSize: 35,
@@ -106,7 +109,7 @@ class BuatPengumumanView extends GetView<BuatPengumumanController> {
                   );
                 }).toList(),
                 onChanged: (String? kategori) {
-                  controller.KategoriPenerima.value = kategori!;
+                  controller.kategoriPenerima.value = kategori!;
                 },
               ),
             ),

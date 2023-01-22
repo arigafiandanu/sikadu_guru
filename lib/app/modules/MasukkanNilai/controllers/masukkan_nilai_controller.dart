@@ -11,6 +11,7 @@ class MasukkanNilaiController extends GetxController {
   List<TextEditingController> catananGuruC = <TextEditingController>[];
 
   List<String> listNilaiUts = [];
+  var emailSiswa = Get.arguments['email'];
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -101,15 +102,15 @@ class MasukkanNilaiController extends GetxController {
   }
 
   // function to get grade student
-  Stream<DocumentSnapshot<Map<String, dynamic>>> futureGrade (
-      String email) async* {
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamGrade (
+      ) async* {
     var waliKelas = await firestore
         .collection("Guru")
         .doc(auth.currentUser!.email)
         .get()
         .then((value) => value.data()?['mengajarKelas']);
 
-    var mataPelajaran = firestore.collection("Siswa").doc(email);
+    var mataPelajaran = firestore.collection("Siswa").doc(emailSiswa);
 
     yield* mataPelajaran.snapshots();
   }
