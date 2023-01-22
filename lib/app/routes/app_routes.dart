@@ -22,6 +22,7 @@ abstract class Routes {
   static const MASUKKAN_NILAI = _Paths.MASUKKAN_NILAI;
   static const EDIT_NILAI = _Paths.EDIT_NILAI;
   static const DETAIL_PENGUMUMAN = _Paths.DETAIL_PENGUMUMAN;
+  static const PENGUMUMAN_KELAS = _Paths.PENGUMUMAN_KELAS;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const MASUKKAN_NILAI = '/masukkan-nilai';
   static const EDIT_NILAI = '/edit-nilai';
   static const DETAIL_PENGUMUMAN = '/detail-pengumuman';
+  static const PENGUMUMAN_KELAS = '/pengumuman-kelas';
 }

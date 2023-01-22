@@ -1,23 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class DetailProfilController extends GetxController {
-  //TODO: Implement DetailProfilController
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Future<DocumentSnapshot<Map<String, dynamic>>> futureDetailProfil() async {
+    DocumentReference<Map<String, dynamic>> siswa =
+        firestore.collection("Guru").doc(auth.currentUser!.email);
+
+    return siswa.get();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

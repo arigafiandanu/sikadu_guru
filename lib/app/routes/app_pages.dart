@@ -34,6 +34,8 @@ import '../modules/loginPage/bindings/login_page_binding.dart';
 import '../modules/loginPage/views/login_page_view.dart';
 import '../modules/lupaPass/bindings/lupa_pass_binding.dart';
 import '../modules/lupaPass/views/lupa_pass_view.dart';
+import '../modules/pengumuman_kelas/bindings/pengumuman_kelas_binding.dart';
+import '../modules/pengumuman_kelas/views/pengumuman_kelas_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
 
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.DETAIL_PENGUMUMAN,
       page: () => const DetailPengumumanView(),
       binding: DetailPengumumanBinding(),
+    ),
+    GetPage(
+      name: _Paths.PENGUMUMAN_KELAS,
+      page: () => const PengumumanKelasView(),
+      binding: PengumumanKelasBinding(),
     ),
   ];
 }

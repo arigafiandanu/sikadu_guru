@@ -59,28 +59,26 @@ class CustomFormFieldIsiPengumuman extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Expanded(
-              child: TextFormField(
-                autofocus: true,
-                maxLines: 5,
-                keyboardType: TextInputType.multiline,
-                maxLength: 1000,
-                readOnly: readOnly,
-                controller: controller,
-                style: KTextStyle.textFieldHintStyle,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: hint,
-                  hintStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  focusColor: Colors.grey.shade100,
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: context.theme.backgroundColor,
-                      width: 0,
-                    ),
+            child: TextFormField(
+              autofocus: true,
+              maxLines: 5,
+              keyboardType: TextInputType.multiline,
+              maxLength: 1000,
+              readOnly: readOnly,
+              controller: controller,
+              style: KTextStyle.textFieldHintStyle,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: hint,
+                hintStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+                focusColor: Colors.grey.shade100,
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: context.theme.backgroundColor,
+                    width: 0,
                   ),
                 ),
               ),

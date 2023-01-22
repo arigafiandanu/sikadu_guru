@@ -151,18 +151,18 @@ class HomeView extends GetView<HomeController> {
                     ),
                     kategori: "Lihat Siswa",
                   ),
-                  cardhomepage(
-                    ontap: () {
-                      Get.toNamed(Routes.ABSENSI_SISWA);
-                    },
-                    warnaTerang: AppColors.grayshade,
-                    warna: AppColors.blue,
-                    icon: const Icon(
-                      Icons.co_present_outlined,
-                      size: 35,
-                    ),
-                    kategori: "Absensi Siswa",
-                  ),
+                  // cardhomepage(
+                  //   ontap: () {
+                  //     Get.toNamed(Routes.ABSENSI_SISWA);
+                  //   },
+                  //   warnaTerang: AppColors.grayshade,
+                  //   warna: AppColors.blue,
+                  //   icon: const Icon(
+                  //     Icons.co_present_outlined,
+                  //     size: 35,
+                  //   ),
+                  //   kategori: "Absensi Siswa",
+                  // ),
                   cardhomepage(
                     ontap: () {
                       Get.toNamed(Routes.NILAI_SISWA);
@@ -174,7 +174,19 @@ class HomeView extends GetView<HomeController> {
                       size: 35,
                     ),
                     kategori: "Nilai Siswa",
-                  )
+                  ),
+                   cardhomepage(
+                    ontap: () {
+                      Get.toNamed(Routes.PENGUMUMAN_KELAS);
+                    },
+                    warnaTerang: AppColors.grayshade,
+                    warna: AppColors.blue,
+                    icon: const Icon(
+                      Icons.co_present_outlined,
+                      size: 35,
+                    ),
+                    kategori: "Pengumuman Kelas",
+                  ),
                 ],
               ),
             ),
@@ -206,7 +218,7 @@ class HomeView extends GetView<HomeController> {
                       },
                       colorCard: (Colors.indigo[50])!,
                       splashColor: (Colors.indigoAccent.withAlpha(50)),
-                      title: "Kelola Pengumuman",
+                      title: "Semua Pengumuman",
                       jumlahSiswa: "Info $jmlPengumuman",
                       icon: const Icon(
                         Icons.add_alert_rounded,

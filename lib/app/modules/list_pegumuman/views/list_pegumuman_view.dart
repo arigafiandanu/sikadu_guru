@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/list_pegumuman_controller.dart';
@@ -105,7 +106,8 @@ class ListPegumumanView extends GetView<ListPegumumanController> {
                               padding: const EdgeInsets.only(left: 10, top: 5),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                isiData['tanggalBuat'],
+                                (DateFormat.yMMMMd().format(
+                                    DateTime.parse(isiData['tanggalBuat']))),
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,

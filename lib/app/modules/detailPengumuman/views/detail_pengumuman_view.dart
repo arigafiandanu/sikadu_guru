@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 import '../controllers/detail_pengumuman_controller.dart';
 
@@ -9,7 +11,7 @@ class DetailPengumumanView extends GetView<DetailPengumumanController> {
   const DetailPengumumanView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     var dataPengumuman = Get.arguments;
+    var dataPengumuman = Get.arguments;
     List<Container> tempImage =
         (dataPengumuman['fotoPengumuman'] as List).map((item) {
       return Container(
@@ -19,8 +21,8 @@ class DetailPengumumanView extends GetView<DetailPengumumanController> {
         ),
       );
     }).toList();
-    return Scaffold(   
-     appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -32,24 +34,32 @@ class DetailPengumumanView extends GetView<DetailPengumumanController> {
             color: Colors.black,
           ),
         ),
-        title: const Text(
-          'Detail Pengumuman',
-          style: TextStyle(
+        title:  Text(
+          dataPengumuman['judul'],
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
         centerTitle: true,
       ),
-       body: ListView(
+      body: ListView(
         children: [
-          CarouselSlider(
-            items: tempImage,
-            options: CarouselOptions(
-              height: Get.height / 3.5,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 5),
-            ),
-          ),
+          dataPengumuman['fotoPengumuman'] == null
+              ? CarouselSlider(
+                  items: tempImage,
+                  options: CarouselOptions(
+                    height: Get.height / 3.5,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 5),
+                  ),
+                )
+              : Container(
+                  height: Get.height / 3.5,
+                  width: Get.width,
+                  child: Lottie.asset(
+                    "assets/lottie/pengumuman_kosong.json",
+                  ),
+                ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -89,7 +99,8 @@ class DetailPengumumanView extends GetView<DetailPengumumanController> {
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  dataPengumuman['tanggalBuat'],
+                  (DateFormat.yMMMMd()
+                      .format(DateTime.parse(dataPengumuman['tanggalBuat']))),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w300,
@@ -109,22 +120,19 @@ class DetailPengumumanView extends GetView<DetailPengumumanController> {
               ),
             ],
           ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.centerLeft,
-              width: Get.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blue[50],
-              ),
-              child: Text(
-                dataPengumuman['isi'],
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+          Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.blue[50],
+            ),
+            child: Text(
+              dataPengumuman['isi'],
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
