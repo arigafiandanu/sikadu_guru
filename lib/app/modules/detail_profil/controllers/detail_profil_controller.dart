@@ -7,9 +7,9 @@ class DetailProfilController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<DocumentSnapshot<Map<String, dynamic>>> futureDetailProfil() async {
-    DocumentReference<Map<String, dynamic>> siswa =
+    DocumentReference<Map<String, dynamic>> guru =
         firestore.collection("Guru").doc(auth.currentUser!.email);
 
-    return siswa.get();
+    return guru.get();
   }
 }
