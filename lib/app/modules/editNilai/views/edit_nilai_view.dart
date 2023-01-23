@@ -10,8 +10,8 @@ import '../controllers/edit_nilai_controller.dart';
 class EditNilaiView extends GetView<EditNilaiController> {
   var mataPelajaran = Get.arguments['pelajaran'] ?? "";
   var dataSiswa = Get.arguments['dataSiswa'] ?? "";
-  var nilaiUts = Get.arguments['nilaiUts'] ?? "";
-  var nilaiSemester = Get.arguments['nilaiSemester'] ?? "";
+  var nilaiUts = Get.arguments['nilaiUts'].toString() ?? "";
+  var nilaiSemester = Get.arguments['nilaiSemester'].toString() ?? "";
   var catatanGuru = Get.arguments['catatanGuru'] ?? "";
   var semester = Get.arguments['semester'] ?? "";
 
