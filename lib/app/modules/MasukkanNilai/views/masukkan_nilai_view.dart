@@ -289,8 +289,8 @@ class MasukkanNilaiView extends GetView<MasukkanNilaiController> {
                             arguments: {
                               "pelajaran": dataPelajaranIndex['pelajaran'],
                               "dataSiswa": dataSiswa,
-                              "nilaiUts": grade?['nilaiUts'],
-                              "nilaiSemester": grade?['nilaiSemester'],
+                              "nilaiUts":  "${grade?['nilaiUts']}",
+                              "nilaiSemester": "${grade?['nilaiSemester']}",
                               "catatanGuru": grade?['catatanGuru'],
                               "semester": "semester 2"
                             },

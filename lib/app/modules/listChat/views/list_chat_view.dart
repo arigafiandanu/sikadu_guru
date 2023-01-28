@@ -57,7 +57,12 @@ class ListChatView extends GetView<ListChatController> {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: controller.chatdata(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasData) {
                   var listChat = snapshot.data!.docs;
 
                   if (listChat.isEmpty) {
@@ -141,10 +146,11 @@ class ListChatView extends GetView<ListChatController> {
                       },
                     );
                   }
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
               },
             ),
           ),

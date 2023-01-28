@@ -76,7 +76,6 @@ class NilaiSiswaView extends GetView<NilaiSiswaController> {
                         ),
                       ),
                       title: Text(dataItem['nama']),
-                      // subtitle: Text(dataItem['nip']),
                       trailing: const Icon(Icons.arrow_right),
                     ),
                   );

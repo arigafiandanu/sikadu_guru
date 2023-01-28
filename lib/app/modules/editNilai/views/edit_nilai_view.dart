@@ -10,17 +10,20 @@ import '../controllers/edit_nilai_controller.dart';
 class EditNilaiView extends GetView<EditNilaiController> {
   var mataPelajaran = Get.arguments['pelajaran'] ?? "";
   var dataSiswa = Get.arguments['dataSiswa'] ?? "";
-  var nilaiUts = Get.arguments['nilaiUts'].toString() ?? "";
-  var nilaiSemester = Get.arguments['nilaiSemester'].toString() ?? "";
+  var nilaiUts = Get.arguments?['nilaiUts'] ?? 0;
+  var nilaiSemester = Get.arguments?['nilaiSemester'] ?? 0;
   var catatanGuru = Get.arguments['catatanGuru'] ?? "";
   var semester = Get.arguments['semester'] ?? "";
+
 
   EditNilaiView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    controller.nilaiUts.text = nilaiUts ?? "0";
-    controller.nilaiSemester.text = nilaiSemester ?? "0";
+    controller.nilaiUts.text = (nilaiUts ?? 0).toString();
+    controller.nilaiSemester.text = (nilaiSemester ?? 0).toString();
     controller.catatanGuru.text = catatanGuru ?? "catatan untuk siswa";
+    print("nilai uts");
+    print(nilaiUts);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -113,7 +116,7 @@ class EditNilaiView extends GetView<EditNilaiController> {
                       ),
                       width: Get.width / 4,
                       child: TextFormNilai(
-                        hint: nilaiUts ?? "75",
+                        hint: (nilaiUts ?? 0).toString(),
                         controller: controller.nilaiUts,
                         readOnly: false,
                       ),
@@ -124,7 +127,7 @@ class EditNilaiView extends GetView<EditNilaiController> {
                       ),
                       width: Get.width / 4,
                       child: TextFormNilai(
-                        hint: nilaiSemester ?? "75",
+                        hint: (nilaiSemester ?? 0).toString(),
                         controller: controller.nilaiSemester,
                         readOnly: false,
                       ),

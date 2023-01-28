@@ -117,7 +117,7 @@ class BuatPengumumanController extends GetxController {
     final imgTime = DateTime.now().millisecondsSinceEpoch.toString();
     final imgName = image.name;
     File file = File(image.path);
-
+        
     await storage.ref("pengumuman/$user/$imgTime+$imgName").putFile(file);
     return await storage
         .ref("pengumuman/$user/$imgTime+$imgName")

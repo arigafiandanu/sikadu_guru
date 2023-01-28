@@ -26,13 +26,6 @@ class LoginPageView extends GetView<LoginPageController> {
           const SizedBox(
             height: 50,
           ),
-          // SizedBox(
-          //   width: Get.width,
-          //   height: Get.height * 0.4,
-          //   child: Lottie.asset(
-          //     "assets/assets/login_admin.json",
-          //   ),
-          // ),
           SizedBox(
             height: Get.height * 0.4 ,
             width: Get.width,
